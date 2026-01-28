@@ -55,15 +55,16 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 ### Behavior Options
 
-| Option  | Default | Description                                           |
-| ------- | ------- | ----------------------------------------------------- |
-| cmd     |         | Command to execute when popup opens                   |
-| dir     | $HOME   | Working directory for the session                     |
-| env     |         | Additional environment variables                      |
-| opts    |         | Session-specific tmux options (semicolon-separated)   |
-| per-dir | false   | Create separate sessions per git repository/directory |
-| persist | false   | Keep session alive after the command exits             |
-| prefix  |         | Custom tmux prefix for the session                    |
+| Option  | Default | Description                                                               |
+| ------- | ------- | ------------------------------------------------------------------------- |
+| cmd     |         | Command to execute when popup opens                                       |
+| dir     | $HOME   | Working directory for the session                                         |
+| env     |         | Additional environment variables                                          |
+| opts    |         | Session-specific tmux options (semicolon-separated)                       |
+| per-dir | false   | Create separate sessions per git repository/directory                     |
+| persist | false   | Keep session alive after the command exits                                |
+| prefix  |         | Custom tmux prefix for the session                                        |
+| table   |         | Key table for the binding (e.g., `root`). Auto-detected for mouse events. |
 
 ## Example Configuration
 
