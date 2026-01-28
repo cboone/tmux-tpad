@@ -57,12 +57,13 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 | Option  | Default | Description                                           |
 | ------- | ------- | ----------------------------------------------------- |
-| dir     | $HOME   | Working directory for the session                     |
 | cmd     |         | Command to execute when popup opens                   |
-| prefix  |         | Custom tmux prefix for the session                    |
+| dir     | $HOME   | Working directory for the session                     |
 | env     |         | Additional environment variables                      |
 | opts    |         | Session-specific tmux options (semicolon-separated)   |
 | per-dir | false   | Create separate sessions per git repository/directory |
+| persist | false   | Keep session alive after the command exits             |
+| prefix  |         | Custom tmux prefix for the session                    |
 
 ## Example Configuration
 
@@ -78,6 +79,7 @@ set -g @tpad-scratchpad-dir    "#{pane_current_path}"
 set -g @tpad-git-bind          "C-g"
 set -g @tpad-git-cmd           "lazygit"
 set -g @tpad-git-per-dir       "true"
+set -g @tpad-git-persist       "true"
 set -g @tpad-git-style         "fg=yellow"
 
 # Notes with Neovim
@@ -103,7 +105,7 @@ set -g @tpad-tasks-cmd         "taskwarrior-tui"
 1. Configure your popup sessions in `tmux.conf` as shown above
 2. Press your tmux prefix key (default: <kbd>Ctrl</kbd>+<kbd>b</kbd>)
 3. Press the configured key binding to toggle the popup (e.g., <kbd>Ctrl</kbd>+<kbd>g</kbd> for the git session)
-4. The popup will close automatically when the command exits
+4. The popup will close automatically when the command exits (unless `persist` is enabled)
 
 ### Full-screen mode
 
@@ -146,7 +148,7 @@ set -g @tpad-scratchpad-opts "status on; status-position top"
 
 - [ ] Window controls (resize, maximize, minimize)
 - [ ] Image support for terminals with kitty protocol
-- [ ] Session persistence options
+- [x] Session persistence options
 - [ ] Multiple popup layouts/splits
 
 ## Credits
