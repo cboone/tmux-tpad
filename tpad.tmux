@@ -19,6 +19,7 @@ declare -A DEFAULTS=(
   [height]="60%"
   [style]="fg=blue"
   [border_style]="fg=cyan,rounded"
+  [close_on_click]="true"
 )
 
 main() {
@@ -198,6 +199,12 @@ build_popup_options() {
       echo "${val}"
     fi
   done
+
+  # Add -C flag to close popup on click outside
+  local close_on_click="$(get_config "$instance" close_on_click)"
+  if [[ "$close_on_click" == "true" ]]; then
+    echo "-C"
+  fi
 }
 
 check_dependencies() {

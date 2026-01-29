@@ -55,15 +55,16 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 ### Behavior Options
 
-| Option  | Default | Description                                           |
-| ------- | ------- | ----------------------------------------------------- |
-| cmd     |         | Command to execute when popup opens                   |
-| dir     | $HOME   | Working directory for the session                     |
-| env     |         | Additional environment variables                      |
-| opts    |         | Session-specific tmux options (semicolon-separated)   |
-| per-dir | false   | Create separate sessions per git repository/directory |
-| persist | false   | Keep session alive after the command exits             |
-| prefix  |         | Custom tmux prefix for the session                    |
+| Option         | Default | Description                                           |
+| -------------- | ------- | ----------------------------------------------------- |
+| close_on_click | true    | Close popup when clicking outside of it               |
+| cmd            |         | Command to execute when popup opens                   |
+| dir            | $HOME   | Working directory for the session                     |
+| env            |         | Additional environment variables                      |
+| opts           |         | Session-specific tmux options (semicolon-separated)   |
+| per-dir        | false   | Create separate sessions per git repository/directory |
+| persist        | false   | Keep session alive after the command exits            |
+| prefix         |         | Custom tmux prefix for the session                    |
 
 ## Example Configuration
 
