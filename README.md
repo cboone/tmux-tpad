@@ -42,9 +42,9 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 ### Appearance Options
 
-| Option       | Default                                  | Description                                                    |
-| ------------ | ---------------------------------------- | -------------------------------------------------------------- |
-| title        | `#[fg=magenta,bold] 󱂬 TPad: @instance@ ` | Popup window title                                             |
+| Option       | Default                                                           | Description                                                    |
+| ------------ | ----------------------------------------------------------------- | -------------------------------------------------------------- |
+| title        | `#[fg=magenta,bold] 󱂬 TPad: @instance@ #[fg=red,bold][@close_key@ ×] ` | Popup window title (supports `@instance@` and `@close_key@` placeholders) |
 | width        | 60%                                      | Popup width (percentage or columns)                            |
 | height       | 60%                                      | Popup height (percentage or rows)                              |
 | style        | fg=blue                                  | Popup window style                                             |
@@ -55,15 +55,16 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 ### Behavior Options
 
-| Option  | Default | Description                                           |
-| ------- | ------- | ----------------------------------------------------- |
-| cmd     |         | Command to execute when popup opens                   |
-| dir     | $HOME   | Working directory for the session                     |
-| env     |         | Additional environment variables                      |
-| opts    |         | Session-specific tmux options (semicolon-separated)   |
-| per-dir | false   | Create separate sessions per git repository/directory |
-| persist | false   | Keep session alive after the command exits             |
-| prefix  |         | Custom tmux prefix for the session                    |
+| Option    | Default | Description                                               |
+| --------- | ------- | --------------------------------------------------------- |
+| close_key | q       | Key to close popup without killing session (set empty to disable) |
+| cmd       |         | Command to execute when popup opens                       |
+| dir       | $HOME   | Working directory for the session                         |
+| env       |         | Additional environment variables                          |
+| opts      |         | Session-specific tmux options (semicolon-separated)       |
+| per-dir   | false   | Create separate sessions per git repository/directory     |
+| persist   | false   | Keep session alive after the command exits                |
+| prefix    |         | Custom tmux prefix for the session                        |
 
 ## Example Configuration
 
@@ -106,6 +107,25 @@ set -g @tpad-tasks-cmd         "taskwarrior-tui"
 2. Press your tmux prefix key (default: <kbd>Ctrl</kbd>+<kbd>b</kbd>)
 3. Press the configured key binding to toggle the popup (e.g., <kbd>Ctrl</kbd>+<kbd>g</kbd> for the git session)
 4. The popup will close automatically when the command exits (unless `persist` is enabled)
+
+### Closing Popups
+
+There are several ways to close a popup:
+
+1. **Close key** (default: <kbd>q</kbd>) - Closes the popup without killing the session. The close key is displayed in the title bar. This is especially useful with `persist` mode enabled, as it allows you to close the popup while keeping the session running in the background.
+
+2. **Toggle key** - Press the same key binding you used to open the popup to close it.
+
+3. **Exit the program** - When the program running in the popup exits, the popup closes. If `persist` is disabled (default), this also destroys the session.
+
+To customize or disable the close key:
+```tmux
+# Use 'x' instead of 'q'
+set -g @tpad-scratchpad-close_key "x"
+
+# Disable the close key entirely
+set -g @tpad-scratchpad-close_key ""
+```
 
 ### Full-screen mode
 

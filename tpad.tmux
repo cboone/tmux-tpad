@@ -13,12 +13,13 @@ readonly CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly TPAD_SCRIPT="${CURRENT_DIR}/tpad.tmux"
 
 declare -A DEFAULTS=(
-  [title]="#[fg=magenta,bold] 󱂬 TPad: @instance@ "
+  [title]="#[fg=magenta,bold] 󱂬 TPad: @instance@ #[fg=red,bold][@close_key@ ×] "
   [dir]="$HOME"
   [width]="60%"
   [height]="60%"
   [style]="fg=blue"
   [border_style]="fg=cyan,rounded"
+  [close_key]="q"
 )
 
 main() {
@@ -149,7 +150,20 @@ get_config() {
   local val="$(tmux show-option -gqv "$tmux_var")"
 
   if [[ -z "$val" ]]; then
-    val="${DEFAULTS[$key]/@instance@/${instance^}}"
+    val="${DEFAULTS[$key]}"
+  fi
+
+  # Replace placeholders
+  val="${val/@instance@/${instance^}}"
+  if [[ "$val" == *"@close_key@"* ]]; then
+    local close_key="$(tmux show-option -gqv "@tpad-${instance}-close_key")"
+    [[ -z "$close_key" ]] && close_key="${DEFAULTS[close_key]}"
+    if [[ -n "$close_key" ]]; then
+      val="${val/@close_key@/$close_key}"
+    else
+      # Remove close button indicator if close_key is disabled
+      val="${val//#\[fg=red,bold\]\[@close_key@ ×\] /}"
+    fi
   fi
 
   echo "$val"
@@ -162,6 +176,12 @@ bind_key() {
 
   tmux bind-key "$key" run-shell "$TPAD_SCRIPT toggle $instance"
   tmux bind-key -T "tpad_$instance" "$key" run-shell "$TPAD_SCRIPT toggle $instance"
+
+  # Bind close key to detach (closes popup without killing session)
+  local close_key="$(get_config "$instance" close_key)"
+  if [[ -n "$close_key" ]]; then
+    tmux bind-key -T "tpad_$instance" "$close_key" detach
+  fi
 }
 
 build_popup_options() {
