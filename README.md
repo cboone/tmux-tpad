@@ -1,3 +1,9 @@
+# FORK: cboone/tmux-tpad, for contributing to Subbeh/tmux-tpad
+
+Current changes:
+
+- Allow binding to other tables, to allow mouse event bindings
+
 # tmux-tpad
 
 A lightweight floating window manager for tmux that allows you to create customizable popup sessions for different workflows.
@@ -19,9 +25,11 @@ A lightweight floating window manager for tmux that allows you to create customi
 
 1. Install [Tmux Plugin Manager (TPM)](https://github.com/tmux-plugins/tpm) if you haven't already
 2. Add the following to your `~/.tmux.conf`:
+
    ```tmux
    set -g @plugin 'Subbeh/tmux-tpad'
    ```
+
 3. Press `prefix` + <kbd>I</kbd> to install the plugin
 
 ## Configuration
@@ -42,16 +50,16 @@ TPad sessions are configured using tmux options in the format: `@tpad-<session_n
 
 ### Appearance Options
 
-| Option       | Default                                  | Description                                                    |
-| ------------ | ---------------------------------------- | -------------------------------------------------------------- |
-| title        | `#[fg=magenta,bold] 󱂬 TPad: @instance@ ` | Popup window title                                             |
-| width        | 60%                                      | Popup width (percentage or columns)                            |
-| height       | 60%                                      | Popup height (percentage or rows)                              |
-| style        | fg=blue                                  | Popup window style                                             |
-| border_style |                                          | Border style (e.g., "fg=cyan")                                 |
-| border_lines | rounded                                  | Border line style (rounded/none/etc)                           |
-| pos_x        |                                          | Horizontal position (percentage, pixels, or left/center/right) |
-| pos_y        |                                          | Vertical position (percentage, pixels, or top/center/bottom)   |
+| Option       | Default                                 | Description                                                    |
+| ------------ | --------------------------------------- | -------------------------------------------------------------- |
+| title        | `#[fg=magenta,bold] 󱂬 TPad: @instance@` | Popup window title                                             |
+| width        | 60%                                     | Popup width (percentage or columns)                            |
+| height       | 60%                                     | Popup height (percentage or rows)                              |
+| style        | fg=blue                                 | Popup window style                                             |
+| border_style |                                         | Border style (e.g., "fg=cyan")                                 |
+| border_lines | rounded                                 | Border line style (rounded/none/etc)                           |
+| pos_x        |                                         | Horizontal position (percentage, pixels, or left/center/right) |
+| pos_y        |                                         | Vertical position (percentage, pixels, or top/center/bottom)   |
 
 ### Behavior Options
 
